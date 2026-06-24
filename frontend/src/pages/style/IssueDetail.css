@@ -1,0 +1,203 @@
+.issue-detail-page .detail-main {
+  padding: 36px 48px;
+}
+
+/* ============================================================
+   Issue detail
+   ============================================================ */
+.issue-detail {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+.detail-main {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 36px 48px;
+}
+.detail-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.detail-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--text);
+}
+.detail-title-input {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  margin-left: -10px;
+  color: var(--text);
+}
+.detail-title-input:hover {
+  background: var(--panel);
+}
+.detail-title-input:focus {
+  border-color: var(--border);
+  background: var(--panel);
+}
+.detail-desc {
+  color: var(--text-2);
+  font-size: 14.5px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+.detail-desc.empty-desc {
+  color: var(--muted-2);
+}
+.detail-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin: 28px 0 10px;
+}
+
+/* Right properties panel */
+.props {
+  width: 268px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border);
+  padding: 18px 16px;
+  overflow-y: auto;
+  background: var(--bg);
+}
+.props-group {
+  padding: 6px 0 14px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 8px;
+}
+.props-group:last-child {
+  border-bottom: none;
+}
+.props-group h4 {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+.prop-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--text-2);
+}
+.prop-row .pico {
+  color: var(--muted);
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+/* inline selects in panel */
+.prop-select {
+  border: none;
+  background: none;
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  color: var(--text-2);
+  font-size: 13px;
+  width: 100%;
+}
+.prop-select:hover {
+  background: var(--hover);
+}
+.prop-select:focus {
+  background: var(--hover);
+  border: none;
+}
+
+/* ---------- Comments ---------- */
+.comment-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.comment {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.comment-body {
+  flex: 1;
+  min-width: 0;
+}
+.comment-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.comment-head strong {
+  color: var(--text);
+}
+.comment-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+.comment-content {
+  font-size: 14px;
+  color: var(--text-2);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.comment-compose {
+  position: relative;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.comment-compose textarea {
+  width: 100%;
+  resize: vertical;
+}
+.mention-menu {
+  position: absolute;
+  bottom: 64px;
+  left: 0;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 20;
+  min-width: 200px;
+  padding: 4px;
+}
+.mention-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  background: none;
+  border: none;
+  color: var(--text-2);
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  text-align: left;
+}
+.mention-item:hover {
+  background: var(--hover);
+}

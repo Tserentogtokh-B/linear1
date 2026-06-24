@@ -1,0 +1,174 @@
+/* ============================================================
+   Base — resets, typography, form controls, primitives
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
+
+/* Inline stroke icons inherit text color */
+.ic {
+  display: block;
+  flex-shrink: 0;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--text);
+  width: 100%;
+  outline: none;
+  transition:
+    border-color 0.14s var(--ease),
+    box-shadow 0.14s var(--ease),
+    background 0.14s var(--ease);
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted-2);
+}
+select option {
+  background: var(--panel);
+  color: var(--text);
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.error {
+  background: color-mix(in srgb, var(--c-danger) 14%, transparent);
+  color: var(--c-danger);
+  padding: 9px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  border: 1px solid color-mix(in srgb, var(--c-danger) 30%, transparent);
+}
+
+.success {
+  background: color-mix(in srgb, var(--c-done) 14%, transparent);
+  color: var(--c-done);
+  padding: 9px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  border: 1px solid color-mix(in srgb, var(--c-done) 30%, transparent);
+}
+
+/* Primary button — gradient + glow */
+button[type="submit"],
+.btn-primary {
+  background-image: var(--accent-gradient);
+  background-size: 140% 140%;
+  background-position: 0% 50%;
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 13px;
+  box-shadow: var(--glow-accent);
+  transition:
+    background-position 0.3s var(--ease),
+    transform 0.08s var(--ease),
+    box-shadow 0.2s var(--ease),
+    opacity 0.15s var(--ease);
+}
+button[type="submit"]:hover,
+.btn-primary:hover {
+  background-position: 100% 50%;
+  box-shadow: var(--glow-accent), var(--glow-soft);
+}
+button[type="submit"]:active,
+.btn-primary:active {
+  transform: translateY(1px);
+}
+button[type="submit"]:disabled,
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* Secondary / ghost button */
+.btn-ghost {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 13px;
+  transition:
+    background 0.12s var(--ease),
+    border-color 0.12s var(--ease),
+    color 0.12s var(--ease);
+}
+.btn-ghost:hover {
+  background: var(--hover);
+  color: var(--text);
+  border-color: var(--accent-soft);
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--accent-text);
+  padding: 4px;
+  transition: color 0.12s var(--ease);
+}
+.link:hover {
+  color: var(--accent-hover);
+}
+.link.danger {
+  color: var(--c-danger);
+}

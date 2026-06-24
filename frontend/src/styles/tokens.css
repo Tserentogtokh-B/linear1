@@ -1,0 +1,116 @@
+/* ============================================================
+   Aurora — design tokens (dark default + light theme)
+   ============================================================ */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --bg: #0a0b11; /* main canvas */
+  --bg-glow: radial-gradient(
+      900px 480px at 12% -8%,
+      rgba(99, 102, 241, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      720px 420px at 100% 0%,
+      rgba(236, 72, 153, 0.08),
+      transparent 55%
+    );
+  --sidebar: #0c0d15; /* left sidebar */
+  --panel: #15161f; /* cards, inputs, popovers */
+  --panel-2: #1b1c27; /* slightly raised */
+  --hover: #20212d; /* hover surface */
+  --selected: #272838; /* selected nav row */
+  --glass: rgba(18, 19, 28, 0.72); /* blurred bars/modals */
+
+  /* Lines */
+  --border: #262733;
+  --border-soft: rgba(255, 255, 255, 0.07);
+
+  /* Text */
+  --text: #f4f5fb;
+  --text-2: #c8cbd9;
+  --muted: #8b90a3;
+  --muted-2: #5d6173;
+
+  /* Accent — Aurora indigo → violet → pink */
+  --accent: #7c7ff5;
+  --accent-hover: #9094ff;
+  --accent-soft: rgba(124, 127, 245, 0.16);
+  --accent-text: #adb1ff;
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 52%, #ec4899 100%);
+  --accent-gradient-soft: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.16),
+    rgba(236, 72, 153, 0.12)
+  );
+
+  /* Status hues */
+  --c-todo: #8b90a3;
+  --c-progress: #f2b246;
+  --c-done: #34d399;
+  --c-canceled: #6a6f7e;
+  --c-danger: #ff6b6f;
+
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Elevation + motion */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --glow-accent: 0 0 0 1px rgba(124, 127, 245, 0.35),
+    0 10px 28px rgba(99, 102, 241, 0.28);
+  --glow-soft: 0 0 22px rgba(124, 127, 245, 0.18);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f5f6fb;
+  --bg-glow: radial-gradient(
+      900px 480px at 12% -8%,
+      rgba(99, 102, 241, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      720px 420px at 100% 0%,
+      rgba(236, 72, 153, 0.07),
+      transparent 55%
+    );
+  --sidebar: #eef0f7;
+  --panel: #ffffff;
+  --panel-2: #f4f5fa;
+  --hover: #ebedf5;
+  --selected: #e4e6f6;
+  --glass: rgba(255, 255, 255, 0.72);
+
+  --border: #e3e5ee;
+  --border-soft: rgba(20, 22, 40, 0.08);
+
+  --text: #181a26;
+  --text-2: #41445a;
+  --muted: #6c7185;
+  --muted-2: #9aa0b4;
+
+  --accent: #6366f1;
+  --accent-hover: #5457e6;
+  --accent-soft: rgba(99, 102, 241, 0.12);
+  --accent-text: #5b54e0;
+
+  --c-todo: #8b90a3;
+  --c-progress: #d9952a;
+  --c-done: #16a34a;
+  --c-canceled: #9aa0b4;
+  --c-danger: #e5484d;
+
+  --shadow-sm: 0 1px 2px rgba(20, 22, 40, 0.08);
+  --shadow-md: 0 8px 24px rgba(20, 22, 40, 0.1);
+  --shadow-lg: 0 24px 60px rgba(20, 22, 40, 0.16);
+  --glow-accent: 0 0 0 1px rgba(99, 102, 241, 0.3),
+    0 10px 26px rgba(99, 102, 241, 0.22);
+  --glow-soft: 0 0 18px rgba(99, 102, 241, 0.14);
+}

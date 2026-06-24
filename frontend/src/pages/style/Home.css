@@ -1,0 +1,12 @@
+.home-page {
+  max-width: 720px;
+}
+
+.home-page h1 {
+  margin-bottom: 12px;
+}
+
+.home-page .muted {
+  max-width: 620px;
+  line-height: 1.55;
+}

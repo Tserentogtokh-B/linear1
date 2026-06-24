@@ -1,0 +1,249 @@
+/* ============================================================
+   Issue list — grouped rows, toolbar, status & priority icons
+   ============================================================ */
+.view-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0 14px;
+  flex-wrap: wrap;
+}
+.seg {
+  display: flex;
+  gap: 2px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3px;
+}
+.seg button {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+  transition:
+    background 0.12s var(--ease),
+    color 0.12s var(--ease);
+}
+.seg button:hover {
+  color: var(--text-2);
+}
+.seg button.active {
+  background: var(--accent-gradient-soft);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--border-soft);
+}
+.project-filter {
+  width: auto;
+  min-width: 150px;
+  padding: 7px 10px;
+  font-size: 12.5px;
+}
+.toolbar-spacer {
+  flex: 1;
+}
+
+.issue-group {
+  margin-bottom: 6px;
+}
+.group-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-top: 12px;
+}
+.group-head .count {
+  color: var(--muted);
+  font-weight: 400;
+}
+.group-head .add-here {
+  margin-left: auto;
+  color: var(--muted);
+  background: none;
+  border: none;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition:
+    background 0.12s var(--ease),
+    color 0.12s var(--ease);
+}
+.group-head .add-here:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.issue-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.issue-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-soft);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition:
+    background 0.12s var(--ease),
+    transform 0.1s var(--ease),
+    box-shadow 0.12s var(--ease);
+}
+.issue-row:hover {
+  background: var(--panel);
+  transform: translateX(2px);
+  box-shadow: var(--shadow-sm);
+}
+.issue-row .ir-priority {
+  width: 14px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.issue-row .ir-id {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  width: 64px;
+  flex-shrink: 0;
+}
+.issue-row .ir-status {
+  flex-shrink: 0;
+  display: flex;
+}
+.issue-row .ir-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.issue-row .ir-labels {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.issue-row .ir-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.issue-row .ir-project {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* Status icon */
+.status-ico {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--c-todo);
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+}
+.status-ico.todo {
+  border-color: var(--c-todo);
+}
+.status-ico.in_progress {
+  border-color: var(--c-progress);
+  background: conic-gradient(var(--c-progress) 0 50%, transparent 50% 100%);
+}
+.status-ico.done {
+  border-color: var(--c-done);
+  background: var(--c-done);
+  box-shadow: 0 0 8px -1px var(--c-done);
+}
+.status-ico.done::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: #07140d;
+  font-weight: 800;
+}
+.status-ico.canceled {
+  border-color: var(--c-canceled);
+  background: color-mix(in srgb, var(--c-canceled) 40%, transparent);
+}
+.status-ico.canceled::after {
+  content: "×";
+  position: absolute;
+  inset: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Priority bars icon */
+.prio {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 12px;
+}
+.prio i {
+  width: 2.5px;
+  background: var(--muted-2);
+  border-radius: 1px;
+}
+.prio i.b1 {
+  height: 4px;
+}
+.prio i.b2 {
+  height: 8px;
+}
+.prio i.b3 {
+  height: 12px;
+}
+.prio.on i {
+  background: var(--text-2);
+}
+.prio.urgent {
+  width: 13px;
+  height: 13px;
+  background: #fbbf24;
+  border-radius: 3px;
+  position: relative;
+  box-shadow: 0 0 8px -1px #fbbf24;
+}
+.prio.urgent::after {
+  content: "!";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  color: #1a1205;
+}
+
+.empty {
+  text-align: center;
+  font-size: 13px;
+  padding: 40px 0;
+  color: var(--muted);
+}

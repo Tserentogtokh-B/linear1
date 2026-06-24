@@ -1,0 +1,43 @@
+/* ============================================================
+   Top bar (breadcrumb) — glassy, blurred
+   ============================================================ */
+.topbar {
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.crumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-2);
+  font-size: 13px;
+}
+.crumb .sep {
+  color: var(--muted-2);
+}
+.crumb .ico {
+  color: var(--muted);
+}
+.crumb a {
+  transition: color 0.1s var(--ease);
+}
+.crumb a:hover {
+  color: var(--text);
+}
+.crumb strong {
+  font-weight: 600;
+}
+.topbar-spacer {
+  flex: 1;
+}

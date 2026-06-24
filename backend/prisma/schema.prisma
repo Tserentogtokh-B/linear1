@@ -1,0 +1,297 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  email                String             @unique
+  name                 String
+  passwordHash         String
+  createdAt            DateTime           @default(now())
+  activeWorkspaceId    String?            @db.Uuid
+  updatedAt            DateTime           @updatedAt
+  id                   String             @id @default(uuid()) @db.Uuid
+  attachments          Attachment[]       @relation("UploadedBy")
+  createdInviteLinks   InviteLink[]       @relation("InviteCreator")
+  inviteRedemptions    InviteRedemption[]
+  notifications        Notification[]
+  changes              ProjectChange[]    @relation("ChangeEngineer")
+  historyEvents        ProjectHistory[]   @relation("HistoryActor")
+  projectMemberships   ProjectMember[]
+  requests             ProjectRequest[]   @relation("RequestCreator")
+  activeWorkspace      Workspace?         @relation("ActiveWorkspace", fields: [activeWorkspaceId], references: [id])
+  ownedWorkspaces      Workspace[]        @relation("WorkspaceOwner")
+  workspaceMemberships WorkspaceMember[]
+}
+
+model Workspace {
+  name        String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  id          String            @id @default(uuid()) @db.Uuid
+  ownerId     String            @db.Uuid
+  inviteLinks InviteLink[]
+  projects    Project[]
+  activeUsers User[]            @relation("ActiveWorkspace")
+  owner       User              @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members     WorkspaceMember[]
+
+  @@unique([name, ownerId])
+  @@index([ownerId])
+}
+
+model WorkspaceMember {
+  joinedAt    DateTime   @default(now())
+  id          String     @id @default(uuid()) @db.Uuid
+  role        MemberRole @default(CLIENT)
+  workspaceId String     @db.Uuid
+  userId      String     @db.Uuid
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@index([workspaceId, role])
+  @@index([userId])
+}
+
+model Project {
+  name          String
+  description   String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  workspaceId   String           @db.Uuid
+  id            String           @id @default(uuid()) @db.Uuid
+  status        ProjectStatus    @default(ACTIVE)
+  attachments   Attachment[]
+  inviteLinks   InviteLink[]
+  notifications Notification[]
+  workspace     Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  changes       ProjectChange[]
+  history       ProjectHistory[]
+  members       ProjectMember[]
+  requests      ProjectRequest[]
+
+  @@unique([workspaceId, name])
+  @@index([workspaceId])
+  @@index([status])
+}
+
+model ProjectMember {
+  id        String   @id @default(uuid()) @db.Uuid
+  joinedAt  DateTime @default(now())
+  projectId String   @db.Uuid
+  userId    String   @db.Uuid
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@index([userId])
+}
+
+model InviteLink {
+  id          String             @id @default(uuid()) @db.Uuid
+  tokenHash   String             @unique
+  role        MemberRole
+  maxUses     Int                @default(1)
+  usedCount   Int                @default(0)
+  expiresAt   DateTime?
+  disabledAt  DateTime?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  workspaceId String             @db.Uuid
+  projectId   String?            @db.Uuid
+  createdById String             @db.Uuid
+  createdBy   User               @relation("InviteCreator", fields: [createdById], references: [id], onDelete: Cascade)
+  project     Project?           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  workspace   Workspace          @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  redemptions InviteRedemption[]
+
+  @@index([workspaceId])
+  @@index([projectId])
+  @@index([role])
+  @@index([expiresAt])
+}
+
+model InviteRedemption {
+  id           String     @id @default(uuid()) @db.Uuid
+  redeemedAt   DateTime   @default(now())
+  inviteLinkId String     @db.Uuid
+  userId       String     @db.Uuid
+  inviteLink   InviteLink @relation(fields: [inviteLinkId], references: [id], onDelete: Cascade)
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([inviteLinkId, userId])
+  @@index([userId])
+}
+
+model ProjectRequest {
+  id            String           @id @default(uuid()) @db.Uuid
+  title         String
+  description   String?
+  status        RequestStatus    @default(OPEN)
+  priority      RequestPriority  @default(MEDIUM)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  projectId     String           @db.Uuid
+  createdById   String           @db.Uuid
+  attachments   Attachment[]
+  notifications Notification[]
+  changes       ProjectChange[]
+  history       ProjectHistory[]
+  createdBy     User             @relation("RequestCreator", fields: [createdById], references: [id], onDelete: Cascade)
+  project       Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([createdById])
+  @@index([status])
+  @@index([priority])
+  @@index([projectId, status])
+}
+
+model ProjectChange {
+  id          String           @id @default(uuid()) @db.Uuid
+  title       String
+  description String?
+  type        ChangeType       @default(NOTE)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  projectId   String           @db.Uuid
+  requestId   String?          @db.Uuid
+  engineerId  String           @db.Uuid
+  attachments Attachment[]
+  engineer    User             @relation("ChangeEngineer", fields: [engineerId], references: [id], onDelete: Cascade)
+  project     Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  request     ProjectRequest?  @relation(fields: [requestId], references: [id], onDelete: Restrict)
+  history     ProjectHistory[]
+
+  @@index([projectId])
+  @@index([requestId])
+  @@index([engineerId])
+  @@index([type])
+}
+
+model ProjectHistory {
+  id          String          @id @default(uuid()) @db.Uuid
+  type        HistoryType
+  title       String
+  description String?
+  createdAt   DateTime        @default(now())
+  projectId   String          @db.Uuid
+  actorId     String?         @db.Uuid
+  requestId   String?         @db.Uuid
+  changeId    String?         @db.Uuid
+  actor       User?           @relation("HistoryActor", fields: [actorId], references: [id])
+  change      ProjectChange?  @relation(fields: [changeId], references: [id])
+  project     Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  request     ProjectRequest? @relation(fields: [requestId], references: [id])
+
+  @@index([projectId])
+  @@index([actorId])
+  @@index([requestId])
+  @@index([changeId])
+  @@index([createdAt])
+  @@index([projectId, createdAt])
+}
+
+model Attachment {
+  filename     String
+  storedName   String
+  mimeType     String
+  size         BigInt
+  createdAt    DateTime        @default(now())
+  changeId     String?         @db.Uuid
+  requestId    String?         @db.Uuid
+  id           String          @id @default(uuid()) @db.Uuid
+  projectId    String?         @db.Uuid
+  uploadedById String          @db.Uuid
+  change       ProjectChange?  @relation(fields: [changeId], references: [id], onDelete: Cascade)
+  project      Project?        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  request      ProjectRequest? @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  uploadedBy   User            @relation("UploadedBy", fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@index([uploadedById])
+  @@index([projectId])
+  @@index([requestId])
+  @@index([changeId])
+}
+
+model Notification {
+  message   String
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  projectId String?          @db.Uuid
+  requestId String?          @db.Uuid
+  id        String           @id @default(uuid()) @db.Uuid
+  type      NotificationType
+  userId    String           @db.Uuid
+  project   Project?         @relation(fields: [projectId], references: [id])
+  request   ProjectRequest?  @relation(fields: [requestId], references: [id])
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, read])
+  @@index([projectId])
+  @@index([requestId])
+  @@index([createdAt])
+}
+
+enum MemberRole {
+  ADMIN
+  CLIENT
+  ENGINEER
+}
+
+enum ProjectStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELED
+}
+
+enum RequestStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  REJECTED
+  CANCELED
+}
+
+enum RequestPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ChangeType {
+  NOTE
+  FILE
+  CODE
+  DESIGN
+  DEPLOYMENT
+  STATUS_UPDATE
+}
+
+enum HistoryType {
+  PROJECT_CREATED
+  MEMBER_ADDED
+  REQUEST_CREATED
+  REQUEST_UPDATED
+  REQUEST_RESOLVED
+  CHANGE_ADDED
+  FILE_UPLOADED
+  COMMENT_ADDED
+}
+
+enum NotificationType {
+  REQUEST_CREATED
+  REQUEST_UPDATED
+  REQUEST_RESOLVED
+  CHANGE_ADDED
+  MEMBER_ADDED
+  COMMENT_ADDED
+}

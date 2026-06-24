@@ -1,0 +1,260 @@
+/* ============================================================
+   Badges, labels, avatars, pills, attachments, mini-lists
+   ============================================================ */
+.label-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  padding: 2px 9px 2px 7px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-2);
+  background: var(--panel);
+}
+.label-badge .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.type-badge {
+  font-size: 11px;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.project-badge {
+  font-size: 11px;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--accent-gradient-soft);
+  color: var(--accent-text);
+  border: 1px solid var(--border-soft);
+}
+.priority-badge {
+  font-size: 11px;
+  text-transform: capitalize;
+  padding: 2px 9px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.p-urgent {
+  background: rgba(251, 191, 36, 0.16);
+  color: #fbbf24;
+}
+.p-high {
+  background: rgba(244, 121, 91, 0.16);
+  color: #f4795b;
+}
+.p-medium {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.p-low {
+  background: rgba(140, 140, 170, 0.12);
+  color: var(--muted);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Avatar */
+.avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-image: var(--accent-gradient);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: var(--glow-soft);
+}
+.avatar.empty {
+  background: transparent;
+  background-image: none;
+  border: 1px dashed var(--border);
+  color: var(--muted-2);
+  box-shadow: none;
+}
+
+/* Label picker chips (IssueProperties + TaskForm) */
+.label-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.label-chip {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 11px;
+  font-size: 12px;
+  background: var(--panel);
+  color: var(--text-2);
+  transition:
+    background 0.12s var(--ease),
+    border-color 0.12s var(--ease);
+}
+.label-chip:hover {
+  border-color: var(--accent-soft);
+}
+
+/* Project pills / status badges */
+.small-note {
+  font-size: 12px;
+  line-height: 1.45;
+}
+.project-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-gradient-soft);
+  color: var(--accent-text);
+  flex-shrink: 0;
+  box-shadow: var(--glow-soft);
+}
+.project-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+  font-size: 12.5px;
+}
+.team-pill,
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.team-pill {
+  background: rgba(140, 140, 170, 0.1);
+  color: var(--text-2);
+  border: 1px solid var(--border-soft);
+}
+.team-pill.unassigned {
+  color: var(--muted);
+  border-style: dashed;
+}
+.status-badge {
+  border: 1px solid var(--border-soft);
+  background: rgba(140, 140, 170, 0.08);
+  color: var(--text-2);
+}
+.status-backlog {
+  color: var(--muted);
+}
+.status-started {
+  color: var(--accent-text);
+  background: var(--accent-soft);
+}
+.status-paused {
+  color: var(--c-progress);
+  background: rgba(242, 178, 70, 0.14);
+}
+.status-done {
+  color: var(--c-done);
+  background: rgba(52, 211, 153, 0.14);
+}
+.status-canceled {
+  color: var(--c-danger);
+  background: rgba(229, 72, 77, 0.14);
+}
+.status-completed {
+  color: #c4a4ff;
+  background: rgba(167, 139, 250, 0.14);
+}
+
+.mini-issue-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.mini-issue-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  cursor: pointer;
+  transition: background 0.12s var(--ease);
+}
+.mini-issue-list li:hover {
+  background: var(--hover);
+}
+.mini-issue-list span {
+  color: var(--muted);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.mini-issue-list strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+/* Attachments */
+.attachments {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.attachments li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 8px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+.file-link {
+  padding: 0;
+  text-align: left;
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 240px;
+  background: none;
+  border: none;
+}
+.file-link:hover {
+  color: var(--accent-text);
+}
+.file-size {
+  font-size: 11px;
+}
+.x {
+  padding: 0 4px;
+  margin-left: auto;
+  background: none;
+  border: none;
+}

@@ -1,0 +1,11 @@
+.create-team-page h1 {
+  margin-bottom: 10px;
+}
+
+.create-team-page .panel-form {
+  margin-top: 22px;
+}
+
+.create-team-page .panel-form button[type="submit"] {
+  width: fit-content;
+}
