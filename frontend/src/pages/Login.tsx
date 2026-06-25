@@ -12,6 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -61,13 +62,22 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          type="password"
-          placeholder="Нууц үг (хамгийн багадаа 6 тэмдэгт)"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="auth-password">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Нууц үг (хамгийн багадаа 6 тэмдэгт)"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className="auth-password-toggle"
+            onClick={() => setShowPassword((v) => !v)}
+          >
+            {showPassword ? "Нуух" : "Харах"}
+          </button>
+        </div>
 
         {error && <div className="error">{error}</div>}
 

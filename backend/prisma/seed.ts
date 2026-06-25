@@ -6,11 +6,16 @@ import {
   RequestPriority,
   ChangeType,
 } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
+const SEED_PASSWORD = "password123";
+
 async function main() {
   console.log("Data vvsgej baina...");
+
+  const passwordHash = await bcrypt.hash(SEED_PASSWORD, 10);
 
   await prisma.notification.deleteMany({});
   await prisma.attachment.deleteMany({});
@@ -33,7 +38,7 @@ async function main() {
     data: {
       email: "togtokh@example.com",
       name: "Togtokh",
-      passwordHash: "hash_value123",
+      passwordHash,
     },
   });
 
@@ -41,7 +46,7 @@ async function main() {
     data: {
       email: "boldoo@example.com",
       name: "boldoo",
-      passwordHash: "dhash_value456",
+      passwordHash,
     },
   });
 
@@ -49,7 +54,7 @@ async function main() {
     data: {
       email: "temuujin@example.com",
       name: "temuujin",
-      passwordHash: "temka_hashvalue789",
+      passwordHash,
     },
   });
 
@@ -57,7 +62,7 @@ async function main() {
     data: {
       email: "enerel@example.com",
       name: "enerel",
-      passwordHash: "enerel_hashvalue888",
+      passwordHash,
     },
   });
 

@@ -74,3 +74,27 @@
 .auth-page {
   min-height: 100vh;
 }
+
+.auth-password {
+  position: relative;
+  display: flex;
+}
+.auth-password input {
+  flex: 1;
+  padding-right: 64px;
+}
+.auth-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.auth-password-toggle:hover {
+  color: var(--text, #fff);
+}
